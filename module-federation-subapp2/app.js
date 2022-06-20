@@ -1,9 +1,12 @@
-import React from "module-federation-lib/react";
+import React from 'react'
 
 const App = () => {
+  const handleclick = ()=>{
+    alert('按钮2的弹窗')
+  }
   return (
     <div className="app2">
-      <h1>这是应用2: app2</h1>
+      <button onClick={handleclick}>这是应用2的按钮</button>
     </div>
   )
 }

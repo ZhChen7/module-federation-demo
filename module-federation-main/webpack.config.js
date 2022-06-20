@@ -57,8 +57,8 @@ module.exports = {
   plugins: [
     new ModuleFederationPlugin({
       name: "main_app",
+      filename:'main.js',
       remotes: {
-        "module-federation-lib": "module_federation_lib@http://localhost:6780/remoteEntry.js",
         "module-federation-subapp1": "subapp1@http://localhost:6781/remoteEntry.js",
         "module-federation-subapp2": "subapp2@http://localhost:6782/remoteEntry.js",
       },

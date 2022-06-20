@@ -1,11 +1,21 @@
-import React from "react";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from "./home";
+import About from "./about";
 
-const App = () => {
+function App() {
   return (
-    <div className="app1">
-      <h1>这是应用1：app1</h1>
+    <div className="App">
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </Router>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

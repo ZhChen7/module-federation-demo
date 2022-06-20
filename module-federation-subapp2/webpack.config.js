@@ -45,10 +45,7 @@ module.exports = {
       filename: "remoteEntry.js",
       exposes: {
         "./index": "./app.js",
-      },
-      remotes: {
-        "module-federation-lib": "module_federation_lib@http://localhost:6780/remoteEntry.js",
-      },
+      }
     }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",

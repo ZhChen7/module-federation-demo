@@ -1,6 +1,8 @@
 const { ModuleFederationPlugin } = require("webpack").container;
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
+const deps = require('./package.json').dependencies;
+
 module.exports = {
   entry: "./index.js",
   mode: "development",
@@ -14,6 +16,7 @@ module.exports = {
     },
     compress: true,
     port: 6789,
+    historyApiFallback: true
   },
   resolve: {
     extensions: [
@@ -61,6 +64,21 @@ module.exports = {
       remotes: {
         "module-federation-subapp1": "subapp1@http://localhost:6781/remoteEntry.js",
         "module-federation-subapp2": "subapp2@http://localhost:6782/remoteEntry.js",
+      },
+      shared: {
+        ...deps,
+        react: {
+          singleton: true,
+          requiredVersion: deps.react,
+        },
+        "react-dom": {
+          singleton: true,
+          requiredVersion: deps["react-dom"],
+        },
+        "react-router-dom": {
+          singleton: true,
+          requiredVersion: deps["react-router-dom"],
+        }
       },
     }),
     new HtmlWebpackPlugin({

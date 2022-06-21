@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import Subapp1 from "module-federation-subapp1/index";
 import Subapp2 from "module-federation-subapp2/index";
 import { LaptopOutlined, UserOutlined } from '@ant-design/icons';
@@ -19,7 +19,6 @@ const App = () => {
       label: `subnav ${key}`,
       children: new Array(2).fill(null).map((_, j) => {
         const subKey = index * 2 + j + 1;
-        console.log('subKey', subKey);
         return {
           key: subKey,
           label: `option${subKey}`,
@@ -28,9 +27,7 @@ const App = () => {
     };
   });
 
-  const handleClick = ({ item, key, keyPath, domEvent }) => {
-    console.log('item', item);
-    console.log('key', key);
+  const handleClick = ({ item, key }) => {
     setNum(key)
   }
 
@@ -74,7 +71,7 @@ const App = () => {
               minHeight: 280,
             }}
           >
-            {num === '1' && <Subapp1 />}
+            {num === '1' && <Subapp1 name='zc'/>}
             {num === '2' && <Subapp2 />}
           </Content>
         </Layout>

@@ -4,7 +4,7 @@ const path = require("path");
 const deps = require('./package.json').dependencies;
 
 module.exports = {
-  entry: "./index.js",
+  entry: "./src/index.js",
   mode: "development",
   output: {
     publicPath: "http://localhost:6789/",
@@ -60,25 +60,27 @@ module.exports = {
   plugins: [
     new ModuleFederationPlugin({
       name: "main_app",
-      filename:'main.js',
+      filename: 'remoteEntry.js',
       remotes: {
         "module-federation-subapp1": "subapp1@http://localhost:6781/remoteEntry.js",
         "module-federation-subapp2": "subapp2@http://localhost:6782/remoteEntry.js",
       },
+      exposes: {
+        './Navigation': './src/Navigation',
+        './routes': './src/routes',
+      },
       shared: {
         ...deps,
         react: {
+          eager: true,
           singleton: true,
           requiredVersion: deps.react,
         },
-        "react-dom": {
+        'react-dom': {
+          eager: true,
           singleton: true,
-          requiredVersion: deps["react-dom"],
+          requiredVersion: deps['react-dom'],
         },
-        "react-router-dom": {
-          singleton: true,
-          requiredVersion: deps["react-router-dom"],
-        }
       },
     }),
     new HtmlWebpackPlugin({

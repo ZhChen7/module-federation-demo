@@ -2,7 +2,7 @@ const { ModuleFederationPlugin } = require("webpack").container;
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 module.exports = {
-  entry: "./index.js",
+  entry: "./src/index.js",
   mode: "development",
   output: {
     publicPath: "http://localhost:6781/",
@@ -14,6 +14,7 @@ module.exports = {
     },
     compress: true,
     port: 6781,
+    historyApiFallback: true
   },
   resolve: {
     extensions: [
@@ -44,8 +45,11 @@ module.exports = {
       name: "subapp1",
       filename: "remoteEntry.js",
       exposes: {
-        "./index": "./app.js",
-      }
+        "./routes": "./src/routers",
+      },
+      remotes: {
+        app1: 'main_app@http://localhost:6789/remoteEntry.js',
+      },
     }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",

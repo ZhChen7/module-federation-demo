@@ -5,7 +5,7 @@ module.exports = {
   entry: "./src/index.js",
   mode: "development",
   output: {
-    publicPath: "http://localhost:6781/",
+    publicPath: "http://localhost:3002/",
     clean: true,
   },
   devServer: {
@@ -13,7 +13,7 @@ module.exports = {
       directory: path.join(__dirname, "dist"),
     },
     compress: true,
-    port: 6781,
+    port: 3002,
     historyApiFallback: true
   },
   resolve: {
@@ -49,6 +49,14 @@ module.exports = {
       },
       remotes: {
         app1: 'main_app@http://localhost:6789/remoteEntry.js',
+      },
+      shared: {
+        react: {
+          singleton: true
+        },
+        'react-dom': {
+          singleton: true
+        },
       },
     }),
     new HtmlWebpackPlugin({

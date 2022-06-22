@@ -7,7 +7,9 @@ module.exports = {
   entry: "./src/index.js",
   mode: "development",
   output: {
-    publicPath: "http://localhost:6789/",
+    publicPath: "http://localhost:3001/",
+    filename: 'js/[name].[contenthash:4].bundle.js',
+    chunkFilename: '[id].[chunkhash].js',
     clean: true,
   },
   devServer: {
@@ -15,7 +17,7 @@ module.exports = {
       directory: path.join(__dirname, "dist"),
     },
     compress: true,
-    port: 6789,
+    port: 3001,
     historyApiFallback: true
   },
   resolve: {
@@ -40,9 +42,9 @@ module.exports = {
           presets: ["@babel/preset-react"],
         },
       },
-           {
+      {
         test: /\.css$/,
-        use: ['style-loader','css-loader']
+        use: ['style-loader', 'css-loader']
       },
       {
         test: /\.s[ac]ss$/i,
@@ -59,25 +61,28 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: "main_app",
-      filename: 'remoteEntry.js',
+      name: "main_app", // 应用名称（供调用方使用）
+      filename: 'remoteEntry.js', // 调用方引入的文件名称
+      // 导入模块
       remotes: {
-        "module-federation-subapp1": "subapp1@http://localhost:6781/remoteEntry.js",
-        "module-federation-subapp2": "subapp2@http://localhost:6782/remoteEntry.js",
+        // 导入别名：“远程应用名称@远程应用地址/远程导出文件的名称”
+        "module-federation-subapp1": "subapp1@http://localhost:3002/remoteEntry.js",
+        "module-federation-subapp2": "subapp2@http://localhost:3003/remoteEntry.js",
       },
+      // 暴露模块
       exposes: {
+        // 模块名称：模块对应的代码路径
         './Navigation': './src/Navigation',
         './routes': './src/routes',
       },
+      // 共享节点模块或依赖项
       shared: {
         ...deps,
         react: {
-          eager: true,
           singleton: true,
           requiredVersion: deps.react,
         },
         'react-dom': {
-          eager: true,
           singleton: true,
           requiredVersion: deps['react-dom'],
         },

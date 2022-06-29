@@ -99,7 +99,7 @@ const App = () => {
                 </HashRouter>
               )
             }
-            {num === '2' && <Subapp2 />}
+            {num === '2' && <Subapp2 text={`这是主项目的文案`}/>}
           </Content>
         </Layout>
       </Content>

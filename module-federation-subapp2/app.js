@@ -1,8 +1,8 @@
 import React from 'react'
 
-const App = () => {
+const App = ({text}) => {
   const handleclick = ()=>{
-    alert('按钮2的弹窗')
+    alert(text)
   }
   return (
     <div className="app2">

@@ -47,9 +47,6 @@ module.exports = {
       exposes: {
         "./routes": "./src/routers",
       },
-      remotes: {
-        app1: 'main_app@http://localhost:6789/remoteEntry.js',
-      },
       shared: {
         react: {
           singleton: true
